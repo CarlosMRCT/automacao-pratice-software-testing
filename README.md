@@ -1,64 +1,63 @@
-Automação de Testes - Practice Software Testing
+[README.md](https://github.com/user-attachments/files/29070302/README.md)
+# Automação de Testes - Practice Software Testing
 
-Projeto de automação de testes utilizando Cypress para o site Practice Software Testing. Este projeto aplica conhecimentos de teste de software com foco em padrões como Page Object Model (POM) e boas práticas de automação.
+Projeto de automação de testes utilizando Cypress para o site [Practice Software Testing](https://practicesoftwaretesting.com/). Este projeto aplica conhecimentos de teste de software com foco em padrões como Page Object Model (POM) e boas práticas de automação.
 
-📋 Sumário
+## 📋 Sumário
 
+- [Visão Geral](#visão-geral)
+- [Tecnologias](#tecnologias)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Configuração](#configuração)
+- [Como Executar](#como-executar)
+- [Testes Implementados](#testes-implementados)
+- [Page Objects](#page-objects)
 
-Visão Geral
-Tecnologias
-Pré-requisitos
-Instalação
-Estrutura do Projeto
-Configuração
-Como Executar
-Testes Implementados
-Page Objects
+---
 
+## 🎯 Visão Geral
 
+Este projeto implementa testes E2E (end-to-end) automatizados para validar funcionalidades críticas do site Practice Software Testing. O foco está em cobertura de fluxos de autenticação (login e registro) utilizando o padrão **Page Object Model** para melhor manutenibilidade e reutilização de código.
 
-🎯 Visão Geral
+---
 
-Este projeto implementa testes E2E (end-to-end) automatizados para validar funcionalidades críticas do site Practice Software Testing. O foco está em cobertura de fluxos de autenticação (login e registro) utilizando o padrão Page Object Model para melhor manutenibilidade e reutilização de código.
+## 🛠 Tecnologias
 
+- **Cypress** (v15.17.0) - Framework de testes E2E
+- **JavaScript (ES6+)** - Linguagem de desenvolvimento
+- **Node.js** - Runtime JavaScript
+- **CommonJS** - Sistema de módulos
 
-🛠 Tecnologias
+---
 
+## 📦 Pré-requisitos
 
-Cypress (v15.17.0) - Framework de testes E2E
-JavaScript (ES6+) - Linguagem de desenvolvimento
-Node.js - Runtime JavaScript
-CommonJS - Sistema de módulos
+- Node.js (versão 20.1.0 ou superior)
+- npm (gerenciador de pacotes)
+- Navegador Chrome ou Electron (inclusos com Cypress)
 
+---
 
+## 💾 Instalação
 
-📦 Pré-requisitos
-
-
-Node.js (versão 20.1.0 ou superior)
-npm (gerenciador de pacotes)
-Navegador Chrome ou Electron (inclusos com Cypress)
-
-
-
-💾 Instalação
-
-
-Clone ou baixe o repositório:
-
-
-bash   git clone <url-do-repositorio>
+1. **Clone ou baixe o repositório:**
+   ```bash
+   git clone <url-do-repositorio>
    cd automacao-pratice-software-testing
+   ```
 
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
 
-Instale as dependências:
+---
 
+## 📂 Estrutura do Projeto
 
-bash   npm install
-
-
-📂 Estrutura do Projeto
-
+```
 automacao-pratice-software-testing/
 │
 ├── cypress/
@@ -81,68 +80,72 @@ automacao-pratice-software-testing/
 ├── package.json                  # Dependências do projeto
 ├── package-lock.json             # Lock de dependências
 └── README.md                      # Este arquivo
+```
 
+---
 
-⚙️ Configuração
+## ⚙️ Configuração
 
-cypress.config.js
+### cypress.config.js
 
 O arquivo de configuração desabilita algumas funcionalidades padrão para melhor controle:
 
-javascript{
+```javascript
+{
   allowCypressEnv: false,  // Desabilita variáveis de ambiente do Cypress
   e2e: {
     watchForFileChanges: false,  // Desabilita watch mode automático
   }
 }
+```
 
+---
 
-🚀 Como Executar
+## 🚀 Como Executar
 
-Modo Interativo (Cypress Studio)
-
+### Modo Interativo (Cypress Studio)
 Abre a interface gráfica do Cypress para executar e debugar testes em tempo real:
 
-bashnpx cypress open
+```bash
+npx cypress open
+```
 
-Selecione E2E Testing e escolha o navegador desejado.
+Selecione **E2E Testing** e escolha o navegador desejado.
 
-Modo Headless (CLI)
-
+### Modo Headless (CLI)
 Executa todos os testes em background sem interface gráfica:
 
-bashnpx cypress run
+```bash
+npx cypress run
+```
 
-Executar arquivo de teste específico
+### Executar arquivo de teste específico
+```bash
+npx cypress run --spec "cypress/e2e/login.cy.js"
+```
 
-bashnpx cypress run --spec "cypress/e2e/login.cy.js"
+### Executar com navegador específico
+```bash
+npx cypress run --browser chrome
+```
 
-Executar com navegador específico
+---
 
-bashnpx cypress run --browser chrome
+## 🧪 Testes Implementados
 
+### 1. Login Tests (`login.cy.js`)
 
-🧪 Testes Implementados
+**Teste:** Validar mensagem de erro com credenciais inválidas
+- **Descrição:** Verifica se o sistema exibe mensagem de erro quando credenciais incorretas são fornecidas
+- **Fluxo:**
+  1. Navega até a página de login
+  2. Preenche email inválido: `usertest@test.com`
+  3. Preenche senha: `12345`
+  4. Clica em "Login"
+  5. Valida que mensagem contém "Invalid"
 
-1. Login Tests (login.cy.js)
-
-Teste: Validar mensagem de erro com credenciais inválidas
-
-
-Descrição: Verifica se o sistema exibe mensagem de erro quando credenciais incorretas são fornecidas
-Fluxo:
-
-Navega até a página de login
-Preenche email inválido: usertest@test.com
-Preenche senha: 12345
-Clica em "Login"
-Valida que mensagem contém "Invalid"
-
-
-
-
-
-javascriptit('Should retrieve error', () => {
+```javascript
+it('Should retrieve error', () => {
   LoginPage
     .visit()
     .fillEmail('usertest@test.com')
@@ -151,50 +154,33 @@ javascriptit('Should retrieve error', () => {
   cy.get('[data-test="login-error"]')
     .should('contain', 'Invalid')
 })
+```
 
-2. Register Tests (register.cy.js)
+### 2. Register Tests (`register.cy.js`)
 
-Teste: Validar falha de registro com senha inválida
+**Teste:** Validar falha de registro com senha inválida
+- **Descrição:** Verifica se o sistema rejeita senhas com caracteres inválidos
+- **Fluxo:**
+  1. Navega até a página de registro
+  2. Preenche dados pessoais:
+     - Nome: `Carlos Eduardo`
+     - Sobrenome: `Teste`
+     - Data de nascimento: `1990-01-01`
+     - País: `Brazil`
+  3. Preenche endereço:
+     - CEP: `12345-678`
+     - Número: `123`
+     - Rua: `Rua Teste`
+     - Cidade: `São Paulo`
+     - Estado: `SP`
+  4. Preenche contato:
+     - Telefone: `11999999999`
+     - Email: `carlos.teste@example.com`
+  5. Tenta registrar com senha `123456789`
+  6. Valida mensagem de erro contém "invalid"
 
-
-Descrição: Verifica se o sistema rejeita senhas com caracteres inválidos
-Fluxo:
-
-Navega até a página de registro
-Preenche dados pessoais:
-
-Nome: Carlos Eduardo
-Sobrenome: Teste
-Data de nascimento: 1990-01-01
-País: Brazil
-
-
-
-Preenche endereço:
-
-CEP: 12345-678
-Número: 123
-Rua: Rua Teste
-Cidade: São Paulo
-Estado: SP
-
-
-
-Preenche contato:
-
-Telefone: 11999999999
-Email: carlos.teste@example.com
-
-
-
-Tenta registrar com senha 123456789
-Valida mensagem de erro contém "invalid"
-
-
-
-
-
-javascriptit('Must fail register (Password with invalid characters)', () => {
+```javascript
+it('Must fail register (Password with invalid characters)', () => {
   RegisterPage
     .visit()
     .fillNames('Carlos Eduardo', 'Teste')
@@ -207,15 +193,18 @@ javascriptit('Must fail register (Password with invalid characters)', () => {
   cy.get('[data-test="password-error"]')
     .should('contain', 'invalid')
 })
+```
 
+---
 
-📄 Page Objects
+## 📄 Page Objects
 
-LoginPage.js
+### LoginPage.js
 
 Encapsula todos os elementos e ações da página de login:
 
-javascriptclass LoginPage {
+```javascript
+class LoginPage {
   Selector = {
     emailInput: '#email',
     passwordInput: '#password',
@@ -227,21 +216,20 @@ javascriptclass LoginPage {
   fillPassword(password) { /* preenche campo de senha */ }
   clickLogin() { /* clica botão de login */ }
 }
+```
 
-Benefícios:
+**Benefícios:**
+- Centraliza seletores em um único lugar
+- Facilita manutenção quando seletores mudam
+- Promove reutilização de código
+- Melhora legibilidade dos testes
 
-
-Centraliza seletores em um único lugar
-Facilita manutenção quando seletores mudam
-Promove reutilização de código
-Melhora legibilidade dos testes
-
-
-RegisterPage.js
+### RegisterPage.js
 
 Implementa Page Object para fluxo de registro com múltiplos steps:
 
-javascriptclass RegisterPage {
+```javascript
+class RegisterPage {
   Selector = { /* 13 elementos de formulário */ }
   
   visit() { /* navega para /auth/register */ }
@@ -253,56 +241,68 @@ javascriptclass RegisterPage {
   fillPassword(password) { /* senha */ }
   submit() { /* submete formulário */ }
 }
+```
 
+---
 
-💡 Padrões e Boas Práticas
+## 💡 Padrões e Boas Práticas
 
-Page Object Model (POM)
+### Page Object Model (POM)
+- Separa a lógica de testes da implementação de UI
+- Facilita manutenção centralizada de seletores
+- Permite reutilização de métodos em múltiplos testes
 
+### Method Chaining
+Todos os Page Objects retornam `this` para permitir encadeamento fluido:
 
-Separa a lógica de testes da implementação de UI
-Facilita manutenção centralizada de seletores
-Permite reutilização de métodos em múltiplos testes
-
-
-Method Chaining
-
-Todos os Page Objects retornam this para permitir encadeamento fluido:
-
-javascriptLoginPage
+```javascript
+LoginPage
   .visit()
   .fillEmail('teste@example.com')
   .fillPassword('senha123')
   .clickLogin()
+```
 
-Seletores Data-Driven
+### Seletores Data-Driven
+Utiliza atributos `data-test` para garantir seletores mais estáveis:
 
-Utiliza atributos data-test para garantir seletores mais estáveis:
+```javascript
+[data-test="login-submit"]  // Mais robusto que classes/IDs
+```
 
-javascript[data-test="login-submit"]  // Mais robusto que classes/IDs
+---
 
+## 🔧 Próximos Passos
 
-🔧 Próximos Passos
+- [ ] Implementar fixtures com dados de teste
+- [ ] Adicionar testes de fluxo completo (register → login → logout)
+- [ ] Criar comandos customizados reutilizáveis
+- [ ] Implementar relatórios de teste
+- [ ] Adicionar testes para funcionalidades adicionais (busca, carrinho, checkout)
+- [ ] Configurar CI/CD (GitHub Actions, Jenkins)
 
+---
 
- Implementar fixtures com dados de teste
- Adicionar testes de fluxo completo (register → login → logout)
- Criar comandos customizados reutilizáveis
- Implementar relatórios de teste
- Adicionar testes para funcionalidades adicionais (busca, carrinho, checkout)
- Configurar CI/CD (GitHub Actions, Jenkins)
+## 📚 Recursos e Referências
 
+- [Documentação Cypress](https://docs.cypress.io/)
+- [Page Object Model em Cypress](https://docs.cypress.io/guides/references/best-practices)
+- [Practice Software Testing](https://practicesoftwaretesting.com/)
 
+---
 
-📚 Recursos e Referências
+## 👤 Autor
 
+**Carlos Eduardo Marchonatto**
 
-Documentação Cypress
-Page Object Model em Cypress
-Practice Software Testing
+---
 
+## 📝 Licença
 
+ISC
 
-👤 Autor
+---
 
-Carlos Eduardo Marchonatto
+## 📞 Suporte
+
+Para dúvidas ou sugestões sobre automação de testes, sinta-se à vontade para abrir uma issue ou entre em contato.
