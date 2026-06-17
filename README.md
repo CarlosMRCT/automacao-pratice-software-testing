@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/29070302/README.md)
 # Automação de Testes - Practice Software Testing
 
 Projeto de automação de testes utilizando Cypress para o site [Practice Software Testing](https://practicesoftwaretesting.com/). Este projeto aplica conhecimentos de teste de software com foco em padrões como Page Object Model (POM) e boas práticas de automação.
