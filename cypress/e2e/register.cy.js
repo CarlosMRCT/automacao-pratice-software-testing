@@ -30,6 +30,17 @@ describe('Register tests', () => {
         cy.get('[data-test="email-error"]')
             .should('contain', 'invalid')
     })
+    it('Failed register (Required field empty)', function(){
+        const userWithouLastName = {
+            ...this.validUserRegister,
+            lastName:' '
+        }
+        RegisterPage
+            .fillAllFields(userWithouLastName)
+            .submit()
+        cy.get('[data-test="register-error"]')
+            .should('contain','required')
+    })
     it('Successful register', function (){
         const validUserRegister ={
             ...this.validUserRegister,
