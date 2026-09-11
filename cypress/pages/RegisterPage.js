@@ -19,36 +19,49 @@ class RegisterPage{
         cy.visit('https://practicesoftwaretesting.com/auth/register')
         return this
     }
-    fillNames(firstName, lastName){
-        cy.get(this.Selector.firstNameInput).type(firstName)
-        cy.get(this.Selector.lastNameInput).type(lastName)
+    fillNames(userData){
+        cy.get(this.Selector.firstNameInput).type(userData.firstName)
+        cy.get(this.Selector.lastNameInput).type(userData.lastName)
         return this
     }
-    fillBirthDate(birthDate){
-        cy.get(this.Selector.birthDateInput).type(birthDate)
+    fillBirthDate(userData){
+        cy.get(this.Selector.birthDateInput).type(userData.birthDate)
         return this
     }
-    fillCountry(country){
-        cy.get(this.Selector.countryList).select(country)
+    fillCountry(userData){
+        cy.get(this.Selector.countryList).select(userData.country)
         return this
     }
-    fillAddress(postalCode, houseNumber, street, city, state){
-        cy.get(this.Selector.postalCodeInput).type(postalCode)
-        cy.get(this.Selector.houseNumberInput).type(houseNumber)
-        cy.get(this.Selector.streetInput).type(street)
-        cy.get(this.Selector.cityInput).type(city)
-        cy.get(this.Selector.stateInput).type(state)
+    fillAddress(userData){
+        const address = userData.address
+        cy.get(this.Selector.postalCodeInput).type(address.postalCode)
+        cy.get(this.Selector.houseNumberInput).type(address.houseNumber)
+        cy.get(this.Selector.streetInput).type(address.street)
+        cy.get(this.Selector.cityInput).type(address.city)
+        cy.get(this.Selector.stateInput).type(address.state)
         return this
     }
-    fillContactInfo(phone, email){
-        cy.get(this.Selector.phoneInput).type(phone)
-        cy.get(this.Selector.emailInput).type(email)
+    fillContactInfo(userData){
+        const contact = userData.contact
+        cy.get(this.Selector.phoneInput).type(contact.phone)
+        cy.get(this.Selector.emailInput).type(contact.email)
         return this
     }
-    fillPassword(password){
-        cy.get(this.Selector.passwordInput).type(password)
+    fillPassword(userData){
+        cy.get(this.Selector.passwordInput).type(userData.password)
         return this
     }
+
+    fillAllFields(userData) {
+        this.fillNames(userData)
+            .fillBirthDate(userData)
+            .fillCountry(userData)
+            .fillAddress(userData)
+            .fillContactInfo(userData)
+            .fillPassword(userData)
+        return this
+    }
+
     submit(){
         cy.get(this.Selector.buttonClick).click()
     }

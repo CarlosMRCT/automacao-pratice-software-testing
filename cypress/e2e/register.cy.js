@@ -1,17 +1,34 @@
 import RegisterPage from "../pages/RegisterPage"
 
 describe('Register tests', () => {
-    it('Must fail register (Password with invalid characters)', () => {
+    beforeEach(function (){
+        cy.fixture('validUserRegister').as('validUserRegister')
+        RegisterPage.visit()
+    })
+    it('Must fail register (Password with invalid characters)', function () {
+        const userWithInvalidPassword = {
+            ...this.validUserRegister,
+            password: '123456789'
+        }
         RegisterPage
-            .visit()
-            .fillNames('Carlos Eduardo', 'Teste')
-            .fillBirthDate('1990-01-01')
-            .fillCountry('Brazil')
-            .fillAddress('12345-678', '123', 'Rua Teste', 'São Paulo', 'SP')
-            .fillContactInfo('11999999999', 'carlos.teste@example.com')
-            .fillPassword('123456789')
+            .fillAllFields(userWithInvalidPassword)
             .submit()
         cy.get('[data-test="password-error"]')
             .should('contain', 'invalid')
-    });
+    })
+
+    it('Failed register (Invalid Email Format)', function(){
+        const userWithInvalidEmail = {
+            ...this.validUserRegister,
+            contact:{
+                ...this.validUserRegister.contact,
+                email:'emailteste.com'
+            }
+        }
+        RegisterPage
+            .fillAllFields(userWithInvalidEmail)
+            .submit()
+        cy.get('[data-test="email-error"]')
+            .should('contain', 'invalid')
+    })
 });

@@ -1,13 +1,16 @@
 import LoginPage from "../pages/LoginPage"
 
 describe('Login tests', () => {
+  beforeEach(function () {
+    cy.fixture('validUserLogin').as('validUserLogin')
+    LoginPage.visit()
+  })
   it('Should retrieve error', () => {
     LoginPage
       .visit()
-      .fillEmail('usertest@test.com')
-      .fillPassword('12345')
+      .fillAllFields(this.validUserLogin)
       .clickLogin()
-     cy.get('[data-test="login-error"]')
+    cy.get('[data-test="login-error"]')
       .should('contain', 'Invalid')
     })
   })
