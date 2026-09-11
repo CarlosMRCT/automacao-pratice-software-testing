@@ -17,7 +17,7 @@ describe('Login tests', () => {
       .should('contain', 'Invalid')
     })
 
-    it.only('Successful login', function () {
+    it('Successful login', function () {
       const validUserLogin = {
         ...this.validUserLogin
       }
