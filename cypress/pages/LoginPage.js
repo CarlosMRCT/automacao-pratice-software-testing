@@ -10,17 +10,22 @@ class LoginPage{
         return this
   }
 
-    fillEmail(email){
-        cy.get(this.Selector.emailInput).type(email)
-        return this
+    fillEmail(userData){
+      cy.get(this.Selector.emailInput).type(userData.email)
+      return this
     }
-    fillPassword(password) {
-    cy.get(this.Selector.passwordInput).type(password)
+    fillPassword(userData) {
+    cy.get(this.Selector.passwordInput).type(userData.password)
     return this
   }
 
   clickLogin() {
     cy.get(this.Selector.submitButton).click()
+    return this
+  }
+  fillAllFields(userData){
+    this.fillEmail(userData)
+      .fillPassword(userData)
     return this
   }
 }

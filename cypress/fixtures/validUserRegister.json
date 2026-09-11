@@ -1,0 +1,18 @@
+{
+  "firstName": "Carlos Eduardo",
+  "lastName": "Teste",
+  "birthDate": "1990-01-01",
+  "country": "Brazil",
+  "address": {
+    "postalCode": "12345-678",
+    "houseNumber": "123",
+    "street": "Rua Teste",
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "contact": {
+    "phone": "11999999999",
+    "email": "carlos.teste@gmail.com"
+  },
+  "password": "TesteSenhaTeste@1234&"
+}
