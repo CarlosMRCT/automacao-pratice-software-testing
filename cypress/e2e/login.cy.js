@@ -5,12 +5,26 @@ describe('Login tests', () => {
     cy.fixture('validUserLogin').as('validUserLogin')
     LoginPage.visit()
   })
-  it('Should retrieve error', () => {
+  it('Failed login (Wrong password)', function () {
+    const invalidUser = {
+      ...this.validUserLogin,
+      password:'1234'
+    }
     LoginPage
-      .visit()
-      .fillAllFields(this.validUserLogin)
+      .fillAllFields(invalidUser)
       .clickLogin()
     cy.get('[data-test="login-error"]')
       .should('contain', 'Invalid')
+    })
+
+    it.only('Successful login', function () {
+      const validUserLogin = {
+        ...this.validUserLogin
+      }
+      LoginPage
+       .fillAllFields(validUserLogin)
+       .clickLogin()
+      cy.url()
+        .should('include', '/account')
     })
   })

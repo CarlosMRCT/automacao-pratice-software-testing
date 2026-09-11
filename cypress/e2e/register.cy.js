@@ -5,7 +5,7 @@ describe('Register tests', () => {
         cy.fixture('validUserRegister').as('validUserRegister')
         RegisterPage.visit()
     })
-    it('Must fail register (Password with invalid characters)', function () {
+    it('Failed register (Password with invalid characters)', function () {
         const userWithInvalidPassword = {
             ...this.validUserRegister,
             password: '123456789'
@@ -16,7 +16,6 @@ describe('Register tests', () => {
         cy.get('[data-test="password-error"]')
             .should('contain', 'invalid')
     })
-
     it('Failed register (Invalid Email Format)', function(){
         const userWithInvalidEmail = {
             ...this.validUserRegister,
@@ -30,5 +29,19 @@ describe('Register tests', () => {
             .submit()
         cy.get('[data-test="email-error"]')
             .should('contain', 'invalid')
+    })
+    it('Successful register', function (){
+        const validUserRegister ={
+            ...this.validUserRegister,
+            contact:{
+                ...this.validUserRegister.contact,
+                email:`carlos.teste.${Date.now()}@example.com`
+            }
+        }
+        RegisterPage
+            .fillAllFields(validUserRegister)
+            .submit()
+        cy.url()
+            .should('include', '/auth/login')
     })
 });
